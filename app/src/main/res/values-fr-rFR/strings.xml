@@ -3,6 +3,7 @@
     <string name="app_name">Meteo</string>
     <string name="city_name">New-York</string>
     <string name="city_desc">Ensoleillé</string>
-    <string name="city_temp" translatable="false">24°C</string>
+    <string name="city_temp">24°C</string>
     <string name="favorites">favoris</string>
+    <string name="input_message">Votre message</string>
 </resources>
