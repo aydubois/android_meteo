@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Meteo</string>
+    <string name="city_name">New-York</string>
+    <string name="city_desc">Sunny</string>
+    <string name="city_temp">24°C</string>
+    <string name="favorites">favorites</string>
+</resources>
