@@ -97,4 +97,12 @@
     </string>
     <string name="action_settings" translatable="false">Settings</string>
     <string name="input_message">Your message</string>
+    <string name="title_activity_scrolling" translatable="false">ScrollingActivity</string>
+    <string name="add_city">Add new city</string>
+    <string name="ok" translatable="false">ok</string>
+    <string name="delete_city_favorite">Are you sure you want to delete from your favorites ?</string>
+    <string name="yes">yes</string>
+    <string name="no">no</string>
+    <string name="cancel">cancel</string>
+    <string name="error_search_city">The city you are looking for does not exist</string>
 </resources>

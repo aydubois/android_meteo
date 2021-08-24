@@ -6,4 +6,10 @@
     <string name="city_temp">24°C</string>
     <string name="favorites">favoris</string>
     <string name="input_message">Votre message</string>
+    <string name="add_city">Ajouter une ville</string>
+    <string name="delete_city_favorite">Etes vous sûr de vouloir supprimer de vos favoris ?</string>
+    <string name="yes">oui</string>
+    <string name="no">non</string>
+    <string name="cancel">annuler</string>
+    <string name="error_search_city">La ville recherchée n\'existe pas</string>
 </resources>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:orientation="vertical"
+    android:background="?android:attr/selectableItemBackground"
+    >
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="98dp"
+    android:background="@drawable/customborder"
+    >
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerInParent="true"
+        android:paddingVertical="2dp"
+        android:paddingLeft="10dp"
+        >
+        <TextView
+            android:id="@+id/text_view_city_name_favorite"
+            android:textSize="@dimen/title_size_favorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="230dp"
+            android:maxLines="2"
+            />
+        <TextView
+            android:id="@+id/text_view_desc_favorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/city_desc_size_favorite"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:layout_alignParentEnd="true"
+        android:paddingVertical="10dp"
+        android:paddingRight="10dp"
+        >
+        <ImageView
+            android:id="@+id/image_view_favorite"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp" />
+        <TextView
+            android:id="@+id/text_view_temp_favorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textSize="@dimen/city_desc_size"/>
+    </LinearLayout>
+
+</RelativeLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:backgroundTint="@color/black">
+    </LinearLayout>
+</LinearLayout>

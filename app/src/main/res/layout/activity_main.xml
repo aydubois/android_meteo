@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
+    android:background="@color/colorSecondary"
     >
     <TextView
         android:id="@+id/text_view_error_network"
@@ -19,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:text="@string/favorites"
         android:layout_margin="@dimen/button_margin"
         />
@@ -48,13 +49,14 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/title_size"/>
             <TextView
+                android:id="@+id/text_view_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/city_desc"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:textColor="@color/white"
-                android:textSize="@dimen/city_desc"/>
+                android:textSize="@dimen/city_desc_size"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -62,6 +64,7 @@
             android:orientation="horizontal"
             android:gravity="center">
             <ImageView
+                android:id="@+id/image_view"
                 android:contentDescription="@string/city_desc"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
@@ -69,21 +72,28 @@
                 />
 
             <TextView
+                android:id="@+id/text_view_temp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/city_temp"
                 android:layout_gravity="center"
-                android:gravity="end"
+                android:gravity="right"
                 android:textColor="@color/white"
                 android:textSize="@dimen/temp_size"/>
         </LinearLayout>
 
     </LinearLayout>
-    <android.support.design.widget.TextInputEditText
+    <!--<ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        style="Widget.ProgressBar.Large"
+        />-->
+    <!--<com.google.android.material.textfield.TextInputEditText
         android:id="@+id/text_input_message"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_centerHorizontal="true"
-        android:text="@string/input_message"/>
+        android:text="@string/input_message"/>-->
 </RelativeLayout>
