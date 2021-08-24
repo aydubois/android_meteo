@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -14,10 +15,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.ayponyo.android.meteo.R;
 import com.ayponyo.android.meteo.Util;
+import com.ayponyo.android.meteo.databinding.ActivityMainBinding;
 import com.ayponyo.android.meteo.models.City;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -40,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
     private ImageView mImageView;
     private Button mButtonFavorites;
     private LinearLayout mLinearLayoutMain;
+
+    private ActivityMainBinding mBinding;
     /*private TextInputEditText mTextInputMessage;*/
 
     private City mCurrentCity;
@@ -47,11 +52,18 @@ public class MainActivity extends AppCompatActivity {
     private OkHttpClient mHttpClient;
     private Handler mHandler;
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        /*setContentView(R.layout.activity_main);*/
+        mBinding = ActivityMainBinding.inflate(getLayoutInflater());
+        City city = new City("TEST", "FEFAE efae ","3", 23);
+        mBinding.setCity(city);
 
+        mBinding.setImagefr(getDrawable(R.drawable.imagefr));
+        mBinding.setImageno(getDrawable(R.drawable.imageno));
+        setContentView(mBinding.getRoot());
         mHandler = new Handler();
 
         /* recovery of the template tags */
@@ -132,6 +144,13 @@ public class MainActivity extends AppCompatActivity {
             mTextViewDesc.setText(newCity.getmDescription());
             mTextViewTemp.setText(newCity.getmTemperature());
             mImageView.setImageResource(newCity.getmWeatherIcon());
+
+            mBinding.setCity(newCity);
+            /*mBinding.executePendingBindings();*/
+            mBinding.setLifecycleOwner(this);
+            Log.d("TEST_BINDING", mBinding.getCity().toString());
+            Log.d("TEST_BINDING", "text" + mBinding.test.getText().toString());
+
 
         }catch(JSONException e){
             Log.d("ERROR_JSON_CITY", e.getMessage());

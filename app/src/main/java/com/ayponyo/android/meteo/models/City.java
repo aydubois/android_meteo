@@ -21,6 +21,7 @@ public class City {
     public double mLongitude;
     public double mLatitude;
     public int mWeatherResIconWhite;
+    public String mCountry;
 
     public City (String name, String description, String temperature, int weatherIcon){
         mName = name;
@@ -49,8 +50,9 @@ public class City {
         JSONObject main = new JSONObject(json.getString("main"));
         mTemperature = Util.convertKelvinToCelsuis(main.getInt("temp"));
 
-        JSONObject sys = new JSONObject(json.getString("sys"));
         mWeatherResIconWhite =  weather.getInt("id");
+        JSONObject sys = new JSONObject(json.getString("sys"));
+        mCountry = sys.getString("country");
         long sunset = sys.getLong("sunset");
         long sunrise = sys.getLong("sunrise");
         mWeatherIcon = Util.setWeatherIcon(mWeatherResIconWhite, sunrise, sunset);
@@ -87,6 +89,10 @@ public class City {
 
     public int getmWeatherResIconWhite() {
         return mWeatherResIconWhite;
+    }
+
+    public String getmCountry() {
+        return mCountry;
     }
 
     @Override

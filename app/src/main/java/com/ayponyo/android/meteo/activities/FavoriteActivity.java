@@ -119,7 +119,8 @@ public class FavoriteActivity extends AppCompatActivity {
                   public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int
                           direction) {
                       FavoriteAdapter.ViewHolder viewH = (FavoriteAdapter.ViewHolder) viewHolder;
-                      int position = viewH.getLayoutPosition();
+                      /*int position = viewH.getLayoutPosition();*/
+                      int position = viewH.getBindingAdapterPosition();
                       City cityRemoved = mCities.get(position);
                       mCities.remove(position);
                       mAdapter.notifyDataSetChanged();
