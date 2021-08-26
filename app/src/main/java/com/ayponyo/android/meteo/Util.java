@@ -58,7 +58,7 @@ public class Util {
         return icon;
     }
 
-    public static double convertKelvinToCelsuis(int kelvin){
-        return Math.round((kelvin - 273.15) * 100.0) / 100.0;
+    public static String convertKelvinToCelsuis(int kelvin){
+        return String.valueOf(Math.round((kelvin - 273.15) * 100.0) / 100.0)+" °C";
     }
 }

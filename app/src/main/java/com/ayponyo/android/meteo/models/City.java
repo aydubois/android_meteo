@@ -13,9 +13,10 @@ import java.util.ArrayList;
 import static java.lang.Integer.parseInt;
 
 public class City {
+    public int mIdDataBase;
     public String mName;
     public String mDescription;
-    public double mTemperature;
+    public String mTemperature;
     public int mWeatherIcon;
     public int mIdCity;
     public double mLongitude;
@@ -23,10 +24,13 @@ public class City {
     public int mWeatherResIconWhite;
     public String mCountry;
 
+    public City(){
+
+    }
     public City (String name, String description, String temperature, int weatherIcon){
         mName = name;
         mDescription = description;
-        mTemperature = parseInt(temperature);
+        mTemperature = temperature;
         mWeatherIcon = weatherIcon;
     }
 
@@ -68,7 +72,7 @@ public class City {
     }
 
     public String getmTemperature() {
-        return mTemperature +" °C";
+        return mTemperature;
     }
 
     public int getmWeatherIcon() {
@@ -93,6 +97,46 @@ public class City {
 
     public String getmCountry() {
         return mCountry;
+    }
+
+    public void setmIdDataBase(int mIdDataBase) {
+        this.mIdDataBase = mIdDataBase;
+    }
+
+    public void setmName(String mName) {
+        this.mName = mName;
+    }
+
+    public void setmDescription(String mDescription) {
+        this.mDescription = mDescription;
+    }
+
+    public void setmTemperature(String mTemperature) {
+        this.mTemperature = mTemperature;
+    }
+
+    public void setmWeatherIcon(int mWeatherIcon) {
+        this.mWeatherIcon = mWeatherIcon;
+    }
+
+    public void setmIdCity(int mIdCity) {
+        this.mIdCity = mIdCity;
+    }
+
+    public void setmLongitude(double mLongitude) {
+        this.mLongitude = mLongitude;
+    }
+
+    public void setmLatitude(double mLatitude) {
+        this.mLatitude = mLatitude;
+    }
+
+    public void setmWeatherResIconWhite(int mWeatherResIconWhite) {
+        this.mWeatherResIconWhite = mWeatherResIconWhite;
+    }
+
+    public void setmCountry(String mCountry) {
+        this.mCountry = mCountry;
     }
 
     @Override

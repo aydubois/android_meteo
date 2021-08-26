@@ -26,11 +26,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ayponyo.android.meteo.R;
 import com.ayponyo.android.meteo.Util;
 import com.ayponyo.android.meteo.adapters.FavoriteAdapter;
+import com.ayponyo.android.meteo.database.DatabaseHelper;
 import com.ayponyo.android.meteo.databinding.ActivityFavoritesBinding;
 import com.ayponyo.android.meteo.models.City;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.gson.Gson;
 
 
 import org.json.JSONException;
@@ -50,19 +52,20 @@ public class FavoriteActivity extends AppCompatActivity {
     private FavoriteAdapter mAdapter;
     private FloatingActionButton mFloatingButtonSearch;
     private CoordinatorLayout mCoordinatorLayoutFavorite;
-    private final ArrayList<City> mCities = new ArrayList<>();
+    private ArrayList<City> mCities;
 
     private OkHttpClient mHttpClient;
     private Handler mHandler;
-
+    DatabaseHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         /* implementation scrolling template */
         binding = ActivityFavoritesBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        db = new DatabaseHelper(this);
+
 
         Toolbar toolbar = binding.toolbar;
         setSupportActionBar(toolbar);
@@ -88,6 +91,7 @@ public class FavoriteActivity extends AppCompatActivity {
         mCities.add(city2);
         mCities.add(city3);
         mCities.add(city4);*/
+        mCities = db.getAllCities();
 
         mHandler = new Handler();
         mHttpClient = new OkHttpClient();
@@ -123,12 +127,14 @@ public class FavoriteActivity extends AppCompatActivity {
                       int position = viewH.getBindingAdapterPosition();
                       City cityRemoved = mCities.get(position);
                       mCities.remove(position);
+                      db.deleteCityInBase(cityRemoved.mIdDataBase);
                       mAdapter.notifyDataSetChanged();
 
                       Snackbar.make(mCoordinatorLayoutFavorite, cityRemoved.mName + "est supprimé", Snackbar.LENGTH_LONG).setAction(R.string.cancel, new View.OnClickListener() {
                           @Override
                           public void onClick(View v) {
                               mCities.add(position,cityRemoved);
+                              db.addCityInBase(cityRemoved);
                               mAdapter.notifyDataSetChanged();
 
                           }
@@ -202,9 +208,11 @@ public class FavoriteActivity extends AppCompatActivity {
     private void renderCurrentWeather(String sJson){
         try{
             City newCity = new City(sJson);
-
+           /* Gson gson = new Gson();
+            City newCity = gson.fromJson(sJson, City.class);*/
             if(!newCity.isAlreadyPresent(mCities)){
                 mCities.add(newCity);
+                db.addCityInBase(newCity);
                 mAdapter.notifyDataSetChanged();
             }
 

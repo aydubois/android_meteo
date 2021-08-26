@@ -129,7 +129,27 @@ public class MainActivity extends AppCompatActivity {
 
                     mHandler.post(new Runnable() {
                         public void run() {
-                            renderCurrentWeather(stringJson);
+                            renderCurrentWeather(stringJson, 1);
+                        }
+                    });
+                }
+            }
+        });
+        Request request2 = new Request.Builder().url("http://api.openweathermap.org/data/2.5/weather?q=Montreal&appid="+Util.API_KEY).build();
+        mHttpClient.newCall(request2).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.d("API_TEST", "ioups ... "+ e.getMessage());
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String stringJson = response.body().string();
+                    Log.d("API_TEST", stringJson);
+
+                    mHandler.post(new Runnable() {
+                        public void run() {
+                            renderCurrentWeather(stringJson,2);
                         }
                     });
                 }
@@ -137,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void renderCurrentWeather(String sJson){
+    private void renderCurrentWeather(String sJson, int numRequete){
         try{
             City newCity = new City(sJson);
             mTextViewCityName.setText(newCity.getmName());
@@ -145,13 +165,18 @@ public class MainActivity extends AppCompatActivity {
             mTextViewTemp.setText(newCity.getmTemperature());
             mImageView.setImageResource(newCity.getmWeatherIcon());
 
-            mBinding.setCity(newCity);
-            /*mBinding.executePendingBindings();*/
-            mBinding.setLifecycleOwner(this);
-            Log.d("TEST_BINDING", mBinding.getCity().toString());
-            Log.d("TEST_BINDING", "text" + mBinding.test.getText().toString());
+            if(numRequete == 1){
 
-
+                mBinding.setCity(newCity);
+                /*mBinding.executePendingBindings();*/
+                mBinding.setLifecycleOwner(this);
+                Log.d("TEST_BINDING", mBinding.getCity().toString());
+                Log.d("TEST_BINDING", "text" + mBinding.test.getText().toString());
+            }
+            if(numRequete == 2){
+                mBinding.setCity2(newCity);
+                mBinding.setLifecycleOwner(this);
+            }
         }catch(JSONException e){
             Log.d("ERROR_JSON_CITY", e.getMessage());
             Log.d("ERROR_JSON_CITY", e.getLocalizedMessage());
