@@ -2,22 +2,17 @@ package com.ayponyo.android.meteo.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ayponyo.android.meteo.R;
 import com.ayponyo.android.meteo.Util;
-import com.ayponyo.android.meteo.activities.FavoriteActivity;
 import com.ayponyo.android.meteo.activities.MapsActivity;
 import com.ayponyo.android.meteo.databinding.ItemFavoriteCityBinding;
 import com.ayponyo.android.meteo.models.City;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHolder> {
@@ -50,7 +45,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
     public void onBindViewHolder( FavoriteAdapter.ViewHolder holder, int position) {
         /* add data into template */
         City city = mCities.get(position);
-        Log.d("PREFERENCES","TEST ===> "+city.getName());
+        /*Log.d("PREFERENCES","TEST ===> "+city.getName());*/
         holder.mBinding.setCityfav(city);
         holder.mBinding.executePendingBindings();
 
@@ -59,7 +54,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
                     Intent intent = new Intent(mContext, MapsActivity.class);
 
                     /*int position = holder.getBindingAdapterPosition();*/
-                    Log.d("GMAPS", position +" - "+mCities.get(position));
+                    /*Log.d("GMAPS", position +" - "+mCities.get(position));*/
                     /*Log.d("GMAPS", mCities.get(position).getStringJson());*/
                     intent.putExtra(Util.KEY_CURRENT_CITY_LNG, mCities.get(position).getCoord().getLon());
                     intent.putExtra(Util.KEY_CURRENT_CITY_LAT, mCities.get(position).getCoord().getLat());

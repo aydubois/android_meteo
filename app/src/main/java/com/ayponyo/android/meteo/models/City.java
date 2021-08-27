@@ -3,6 +3,8 @@ package com.ayponyo.android.meteo.models;
 
 
 
+import android.util.Log;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -424,17 +426,25 @@ public class City   {
             return false;
         if (obj == this)
             return true;
-        String name = ((City) obj).getName();
-        return this.getName().equals(name) && this.getId() == ((City) obj).getId() ;
+        return this.getId() == ((City) obj).getId() ;
     }
     
     public boolean isAlreadyPresent(ArrayList<City> cities){
         //TODO : A revoir
         for ( City city :cities) {
-            if(this.equals(city)){
+            if(this.getId().equals(city.getId())){
                 return true;
             }
         }
         return false;
+    }
+
+    public int getPosition( ArrayList<City> cities){
+        for ( City city :cities) {
+            if(this.getId().equals(city.getId())){
+                return cities.indexOf(city);
+            }
+        }
+        return -1;
     }
 }

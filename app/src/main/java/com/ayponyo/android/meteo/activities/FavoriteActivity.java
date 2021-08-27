@@ -1,5 +1,6 @@
 package com.ayponyo.android.meteo.activities;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -40,7 +41,7 @@ public class FavoriteActivity extends AppCompatActivity implements APIManager {
     protected void onResume() {
         super.onResume();
         mCities = Util.initFavoriteCities(this);
-
+        refreshWeather();
     }
 
     @Override
@@ -67,6 +68,8 @@ public class FavoriteActivity extends AppCompatActivity implements APIManager {
 
 
         mCities = Util.initFavoriteCities(this);
+        if(mCities.size() > 0)
+            refreshWeather();
 
 
         /* implementation action on the recycler */
@@ -117,7 +120,11 @@ public class FavoriteActivity extends AppCompatActivity implements APIManager {
         binding.floatingButtonSearch.setOnClickListener(mClickSearchButton);
 
     }
-
+    private void refreshWeather(){
+        for (City city : mCities){
+            newCall(getCityWeatherByIdCity(city.getId()));
+        }
+    }
     private final View.OnClickListener mClickSearchButton =
             v -> {
                 /* opening a modal with edit text & 2 buttons */
@@ -144,14 +151,23 @@ public class FavoriteActivity extends AppCompatActivity implements APIManager {
     @Override
     public void manageResponseAPI(String json) {
         City newCity = Util.gson.fromJson(json, City.class);
-
+        Log.d("REFRESH",!newCity.isAlreadyPresent(mCities) + " " );
         if(!newCity.isAlreadyPresent(mCities)){
+            Log.d("REFRESH"," no present " );
 
             mCities.add(newCity);
             Util.saveFavouriteCities(this, mCities);
             mAdapter.updateData(mCities);
-/*            mAdapter.notifyDataSetChanged();*/
 
+        }else{
+            Log.d("REFRESH", "present");
+            int position = newCity.getPosition( mCities);
+            if(position != -1){
+                mCities.get(position).setWeather(newCity.getWeather());
+                mCities.get(position).setMain(newCity.getMain());
+                mAdapter.updateData(mCities);
+
+            }
         }
     }
 

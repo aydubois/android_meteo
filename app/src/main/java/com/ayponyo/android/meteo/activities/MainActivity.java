@@ -12,6 +12,8 @@ import android.os.Bundle;
 import android.os.Looper;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -39,6 +41,32 @@ public class MainActivity extends AppCompatActivity implements APIManager {
     private City mCity = new City();
     private Location mCurrentLocation;
     private FusedLocationProviderClient mFusedLocationClient;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+// Handle item selection
+        switch (item.getItemId()) {
+            case R.id.action_location:
+                if (mCity != null) {
+                    Intent intent = new Intent(this, MapsActivity.class);
+                    intent.putExtra(Util.KEY_CURRENT_CITY_LNG, mCity.getCoord().getLon());
+                    intent.putExtra(Util.KEY_CURRENT_CITY_LAT, mCity.getCoord().getLat());
+                    intent.putExtra(Util.KEY_CURRENT_CITY_NAME, mCity.getName());
+                    startActivity(intent);
+                }
+                return true;
+            case R.id.action_settings:
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
