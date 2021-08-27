@@ -18,7 +18,9 @@ import java.util.Date;
 
 public class Util {
     /* keys for extras */
-    public static final String key_message = "message";
+    public static final String KEY_CURRENT_CITY_LAT = "current_city_lat";
+    public static final String KEY_CURRENT_CITY_LNG = "current_city_lng";
+    public static final String KEY_CURRENT_CITY_NAME = "current_city_name";
     public static final String API_KEY = Keys.API_KEYS;
     public static final int REQUEST_CODE = 1812;
     public static final String PREFS_NAME = "cities";

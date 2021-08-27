@@ -1,8 +1,5 @@
 package com.ayponyo.android.meteo.activities;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -10,7 +7,6 @@ import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -23,25 +19,14 @@ import com.ayponyo.android.meteo.APIManager;
 import com.ayponyo.android.meteo.R;
 import com.ayponyo.android.meteo.Util;
 import com.ayponyo.android.meteo.adapters.FavoriteAdapter;
-import com.ayponyo.android.meteo.database.DatabaseHelper;
 import com.ayponyo.android.meteo.databinding.ActivityFavoritesBinding;
 import com.ayponyo.android.meteo.models.City;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.gson.Gson;
-
-
-import org.json.JSONException;
-
 import java.io.IOException;
 import java.util.ArrayList;
 
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 public class FavoriteActivity extends AppCompatActivity implements APIManager {
     private ActivityFavoritesBinding binding;
@@ -90,7 +75,6 @@ public class FavoriteActivity extends AppCompatActivity implements APIManager {
         mRecyclerViewCityFavorite.setLayoutManager(layoutManager);
         mAdapter =  new FavoriteAdapter(this, mCities);
         mRecyclerViewCityFavorite.setAdapter(mAdapter);
-
         /* implementation swipe */
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new
               ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT)

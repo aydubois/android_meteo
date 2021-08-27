@@ -108,4 +108,5 @@
     <string name="error_network">You need internet to run the application properly.</string>
     <string name="permission_denied_location">Location Permission Denied</string>
     <string name="permission_required">Permission for get location is required</string>
+    <string name="title_activity_maps">Map</string>
 </resources>
