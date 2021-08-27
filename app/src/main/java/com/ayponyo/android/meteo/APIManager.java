@@ -35,13 +35,13 @@ public interface APIManager {
             @Override
             public void onFailure(Call call, IOException e) {
                 manageResponseFailAPI(e);
-                /*Log.d("API_TEST", "ioups ... "+ e.getMessage());*/
+                Log.d("API_TEST", "ioups ... "+ e.getMessage());
             }
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
                     final String stringJson = response.body().string();
-                   /* Log.d("API_TEST", stringJson);*/
+                    Log.d("API_TEST", stringJson);
 
                     mHandler.post(() -> manageResponseAPI(stringJson));
                 }

@@ -20,6 +20,7 @@ public class Util {
     /* keys for extras */
     public static final String key_message = "message";
     public static final String API_KEY = Keys.API_KEYS;
+    public static final int REQUEST_CODE = 1812;
     public static final String PREFS_NAME = "cities";
     public static final String PREFS_FAVORITE_CITIES = "favorite_cities";
     public static final Gson gson = new Gson();

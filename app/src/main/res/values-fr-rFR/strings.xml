@@ -13,4 +13,6 @@
     <string name="cancel">annuler</string>
     <string name="error_search_city">La ville recherchée n\'existe pas</string>
     <string name="error_network">Vous avez besoin d\'internet pour faire fonctionner correctement l\'application</string>
+    <string name="permission_denied_location">Permission de localisation refusée</string>
+    <string name="permission_required">L\'autorisation d\'obtenir l\'emplacement est requise</string>
 </resources>
