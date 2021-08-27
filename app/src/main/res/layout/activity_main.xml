@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <import type="android.view.View"/>
         <import type="android.graphics.drawable.Drawable"/>
         <import type="com.ayponyo.android.meteo.Util"/>
         <variable name="city" type="com.ayponyo.android.meteo.models.City"/>
-        <variable name="city2" type="com.ayponyo.android.meteo.models.City"/>
         <variable name="imagefr" type="Drawable"/>
         <variable name="imageno" type="Drawable"/>
+        <variable name="isConnected" type="boolean"/>
     </data>
 
 <RelativeLayout
@@ -20,8 +21,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:visibility="gone"
+        android:visibility="@{isConnected ? View.GONE : View.VISIBLE }"
         android:textColor="@color/black"
+        android:text="@string/error_network"
         />
 
     <Button
@@ -33,6 +35,7 @@
         android:layout_alignParentRight="true"
         android:text="@string/favorites"
         android:layout_margin="@dimen/button_margin"
+        android:visibility="@{isConnected ? View.VISIBLE : View.GONE }"
         />
     <LinearLayout
         android:id="@+id/linear_layout_main"
@@ -42,10 +45,12 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:background="@color/orange"
-        android:padding="16dp">
+        android:padding="16dp"
+        android:visibility="@{isConnected ? View.VISIBLE : View.GONE }"
+        >
 
         <LinearLayout
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="150dp"
             android:orientation="vertical"
             android:layout_gravity="center"
@@ -57,17 +62,28 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:textColor="@color/white"
-                android:textSize="@dimen/title_size"/>
+                android:textSize="@dimen/title_size"
+                android:text="@{city.name}"/>
             <TextView
                 android:id="@+id/text_view_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/city_desc"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:textColor="@color/white"
-                android:textSize="@dimen/city_desc_size"/>
+                android:textSize="@dimen/city_desc_size"
+
+                android:visibility="@{city.weather.get(0).description.length() > 0 ? View.VISIBLE : View.GONE}"
+                android:text="@{city.weather.get(0).description}"
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:src="@{ city.sys.country.length() > 0 &amp;&amp; city.sys.country.equals(`FR`) ? imagefr : imageno  }"
+                />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -78,14 +94,14 @@
                 android:contentDescription="@string/city_desc"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:src="@drawable/weather_sunny_white"
+                app:imageResource="@{Util.setWeatherIcon(city.weather.get(0).id)}"
                 />
 
             <TextView
                 android:id="@+id/text_view_temp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/city_temp"
+                android:text="@{ Util.convertKelvinToCelsuis(city.main.temp) }"
                 android:layout_gravity="center"
                 android:gravity="right"
                 android:textColor="@color/white"
@@ -93,103 +109,5 @@
         </LinearLayout>
 
     </LinearLayout>
-    <!-- TEST DATA BINDING   -->
-    <LinearLayout
-        android:id="@+id/linear_layout_city"
-        android:layout_width="match_parent"
-        android:layout_marginTop="30dp"
-        android:layout_height="200dp"
-        android:layout_below="@+id/linear_layout_main"
-        android:orientation="vertical" >
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:src="@{ city.mCountry.length() > 0 &amp;&amp; city.mCountry.equals(`FR`) ? imagefr : imageno  }"
-            />
-        <TextView android:layout_width="match_parent"
-            android:id="@+id/test"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:gravity="center_horizontal"
-            android:textSize="@dimen/city_desc_size"
-
-            android:text="@{city.mName}"
-            />
-        </LinearLayout>
-
-
-        <TextView android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:gravity="center_horizontal"
-            android:textSize="@dimen/city_desc_size"
-
-            android:visibility="@{city.mDescription.length() > 0 ? View.VISIBLE : View.GONE}"
-            android:text="@{Util.capitalize(city.mDescription)}"
-            />
-
-
-
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/linear_layout_city2"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_below="@+id/linear_layout_city"
-        android:orientation="vertical" >
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:src="@{ city2.mCountry.length() > 0 &amp;&amp; city2.mCountry.equals(`FR`) ? imagefr : imageno  }"
-                />
-            <TextView android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:gravity="center_horizontal"
-                android:textSize="@dimen/city_desc_size"
-
-                android:text="@{city2.mName}"
-                />
-        </LinearLayout>
-
-
-        <TextView android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:gravity="center_horizontal"
-            android:textSize="@dimen/city_desc_size"
-
-            android:visibility="@{city2.mDescription.length() > 0 ? View.VISIBLE : View.GONE}"
-            android:text="@{Util.capitalize(city2.mDescription)}"
-            />
-
-
-
-    </LinearLayout>
-    <!--<ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        style="Widget.ProgressBar.Large"
-        />-->
-    <!--<com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/text_input_message"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_centerHorizontal="true"
-        android:text="@string/input_message"/>-->
 </RelativeLayout>
 </layout>

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -30,7 +29,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + KEY_RES_ICON + " INTEGER," + KEY_LAT + " DECIMAL (3, 10),"
             + KEY_LNG + " DECIMAL (3, 10))";
 
-    private String[] allColumns = { KEY_ID,KEY_ID_CITY, KEY_NAME, KEY_TEMP, KEY_DESC, KEY_RES_ICON, KEY_LNG, KEY_LAT };
+    private final String[] allColumns = { KEY_ID,KEY_ID_CITY, KEY_NAME, KEY_TEMP, KEY_DESC, KEY_RES_ICON, KEY_LNG, KEY_LAT };
 
 
     public DatabaseHelper(@Nullable Context context) {
@@ -52,13 +51,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues datas = new ContentValues();
-        datas.put(KEY_ID_CITY, city.getmIdCity());
-        datas.put(KEY_NAME, city.getmName());
-        datas.put(KEY_TEMP, city.getmTemperature());
-        datas.put(KEY_DESC, city.getmDescription());
-        datas.put(KEY_RES_ICON, city.getmWeatherIcon());
-        datas.put(KEY_LAT, city.getmLatitude());
-        datas.put(KEY_LNG, city.getmLongitude());
+        datas.put(KEY_ID_CITY, city.getSys().getId());
+        datas.put(KEY_NAME, city.getName());
+        datas.put(KEY_TEMP, city.getMain().getTemp());
+        datas.put(KEY_DESC, city.getWeather().get(0).getDescription());
+        /*datas.put(KEY_RES_ICON, city.getmWeatherIcon());*/
+        datas.put(KEY_LAT, city.getCoord().getLat());
+        datas.put(KEY_LNG, city.getCoord().getLon());
 
         int idRow = (int) db.insert(TABLE_CITY, null, datas);
 
@@ -85,15 +84,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         
         while (!cursor.isAfterLast()) {
             City city = new City();
-            city.setmIdDataBase( cursor.getInt(cursor.getColumnIndex(KEY_ID)));
-            city.setmIdCity( cursor.getInt(cursor.getColumnIndex(KEY_ID_CITY)));
-            city.setmName(cursor.getString(cursor.getColumnIndex(KEY_NAME)));
-            city.setmDescription(cursor.getString(cursor.getColumnIndex(KEY_DESC)));
+            city.setId( cursor.getInt(cursor.getColumnIndex(KEY_ID)));
+            city.getSys().setId( cursor.getInt(cursor.getColumnIndex(KEY_ID_CITY)));
+            city.setName(cursor.getString(cursor.getColumnIndex(KEY_NAME)));
+            city.getWeather().get(0).setDescription((cursor.getString(cursor.getColumnIndex(KEY_DESC))));
             /*Log.d("TEST_SQL", cursor.getString(cursor.getColumnIndex(KEY_TEMP)));*/
-            city.setmTemperature(cursor.getString(cursor.getColumnIndex(KEY_TEMP)));
-            city.setmLatitude(Double.parseDouble(cursor.getString(cursor.getColumnIndex(KEY_LAT))));
-            city.setmLongitude(Double.parseDouble(cursor.getString(cursor.getColumnIndex(KEY_LNG))));
-            city.setmWeatherIcon(Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_RES_ICON))));
+            city.getMain().setTemp(Double.parseDouble(cursor.getString(cursor.getColumnIndex(KEY_TEMP))));
+            city.getCoord().setLat(Double.parseDouble(cursor.getString(cursor.getColumnIndex(KEY_LAT))));
+            city.getCoord().setLon(Double.parseDouble(cursor.getString(cursor.getColumnIndex(KEY_LNG))));
+            /*city.setmWeatherIcon(Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_RES_ICON))));*/
 
             cities.add(city);
             cursor.moveToNext();

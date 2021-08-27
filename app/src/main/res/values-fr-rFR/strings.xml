@@ -12,4 +12,5 @@
     <string name="no">non</string>
     <string name="cancel">annuler</string>
     <string name="error_search_city">La ville recherchée n\'existe pas</string>
+    <string name="error_network">Vous avez besoin d\'internet pour faire fonctionner correctement l\'application</string>
 </resources>

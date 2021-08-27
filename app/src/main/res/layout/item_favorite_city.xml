@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="android.view.View"/>
+        <import type="android.graphics.drawable.Drawable"/>
+        <import type="com.ayponyo.android.meteo.Util"/>
+        <variable name="cityfav" type="com.ayponyo.android.meteo.models.City"/>
+    </data>
+
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
     android:layout_width="match_parent"
     android:layout_height="100dp"
     android:orientation="vertical"
@@ -30,13 +38,15 @@
             android:maxWidth="230dp"
             android:maxLines="2"
             android:textColor="@color/white"
+            android:text="@{cityfav.name}"
             />
         <TextView
             android:id="@+id/text_view_desc_favorite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/city_desc_size_favorite"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            android:text="@{cityfav.weather.get(0).description}"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
@@ -53,12 +63,15 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginEnd="20dp"
-            android:layout_marginRight="20dp" />
+            android:layout_marginRight="20dp"
+            app:imageResource="@{Util.setWeatherIcon(cityfav.weather.get(0).id)}"
+            />
         <TextView
             android:id="@+id/text_view_temp_favorite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:text="@{ Util.convertKelvinToCelsuis(cityfav.main.temp) }"
             android:textSize="@dimen/city_desc_size"
             android:textColor="@color/white"/>
     </LinearLayout>
@@ -71,3 +84,4 @@
         android:backgroundTint="@color/black">
     </LinearLayout>-->
 </LinearLayout>
+</layout>
